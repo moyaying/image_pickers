@@ -9,7 +9,7 @@
 #import "AKGallery.h"
 #import "PlayTheVideoVC.h"
 #import <AssetsLibrary/AssetsLibrary.h>
-#import <AFNetworking/AFNetworking.h>
+//#import <AFNetworking/AFNetworking.h>
 #import "NSBundle+ZLPhotoBrowser.h"
 #import "BigImageViewController.h"
 #define Frame_rectStatus ([[UIApplication sharedApplication] statusBarFrame].size.height)
@@ -657,6 +657,7 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
     return thumb;
 }
 
+/*
 - (void)playerDownload:(NSString *)url{
     
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
@@ -678,7 +679,37 @@ static NSString *const CHANNEL_NAME = @"flutter/image_pickers";
         [self saveVideo:fullPath];
     }];
     [task resume];
+    
 }
+*/
+
+- (void)playerDownload:(NSString *)url{
+    
+    NSLog(@"[ImagePickers] --> playerDownload");
+    
+    /*
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    
+    AFHTTPSessionManager *manager = [AFHTTPSessionManager manager];
+    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
+    formatter.dateFormat = @"yyyyMMddHHmmss";
+    NSString  *fullPath = [NSString stringWithFormat:@"%@/%@.mp4", documentsDirectory,[NSString stringWithFormat:@"%@",[formatter stringFromDate:[NSDate date]]]];
+    NSURL *urlNew = [NSURL URLWithString:url];
+    NSURLRequest *request = [NSURLRequest requestWithURL:urlNew];
+    NSURLSessionDownloadTask *task =
+    [manager downloadTaskWithRequest:request
+                            progress:nil destination:^NSURL *(NSURL *targetPath, NSURLResponse *response) {
+        return [NSURL fileURLWithPath:fullPath];
+    }
+                   completionHandler:^(NSURLResponse *response, NSURL *filePath, NSError *error) {
+        NSLog(@"%@",response);
+        [self saveVideo:fullPath];
+    }];
+    [task resume];
+    */
+}
+
 
 //videoPath为视频下载到本地之后的本地路径
 - (void)saveVideo:(NSString *)videoPath{
