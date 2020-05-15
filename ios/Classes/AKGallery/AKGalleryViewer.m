@@ -436,6 +436,46 @@
     self.edgesForExtendedLayout=UIRectEdgeAll;
     self.automaticallyAdjustsScrollViewInsets=NO;
     self.extendedLayoutIncludesOpaqueBars=YES;
+     
+  
+    UIPageViewController* pvc= [[UIPageViewController alloc]initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:@{
+        UIPageViewControllerOptionInterPageSpacingKey:@(self.gallery.custUI.spaceBetweenViewer)
+    } ];
+    
+    if (self.gallery.custUI.viewerBackgroundBlack) {
+        pvc.view.backgroundColor=[UIColor blackColor];
+    }else{
+        pvc.view.backgroundColor=[UIColor whiteColor];
+    }
+    
+    AKGalleryViewer* vcMid=[[AKGalleryViewer alloc]initWithContainer:self index:self.index];
+    [pvc setViewControllers:@[vcMid] direction:UIPageViewControllerNavigationDirectionForward animated:NO completion:nil];
+    
+    [self addChildViewController:pvc];
+    
+    pvc.delegate=self;
+    pvc.dataSource=self;
+    [self.view addSubview:pvc.view];
+    self.pageVC=pvc;
+    
+    [pvc.view mas_makeConstraints:^(MASConstraintMaker *make) {
+        //        make.left.right.top.equalTo(self.view);
+        //        make.bottom.equalTo(self.toolBar.mas_top);
+        make.edges.equalTo(self.view);
+    }];
+     
+    
+    [self updateUI];
+    
+}
+
+/*
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    
+    self.edgesForExtendedLayout=UIRectEdgeAll;
+    self.automaticallyAdjustsScrollViewInsets=NO;
+    self.extendedLayoutIncludesOpaqueBars=YES;
     
     //back bar button
 //    UIBarButtonItem* backBarBtn =[[UIBarButtonItem alloc]initWithImage:[self reSizeImage:[UIImage  imageNamed:@"fanhuiheise_btn"] toSize:CGSizeMake(45, 45)] style:UIBarButtonItemStylePlain target:self action:@selector(pop)];
@@ -508,7 +548,7 @@
     [self updateUI];
     
 }
-
+*/
 
 -(AKGallery*)gallery{
     
